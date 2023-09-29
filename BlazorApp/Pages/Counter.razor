@@ -1,0 +1,144 @@
+﻿@page "/counter"
+
+<PageTitle>Calculator</PageTitle>
+
+<h1>Calculator</h1>
+
+@*Display the first number, second number and current count on the screen
+This will project the outputs of the calculator.*@
+<p role="status">First Number: @firstCount </p>
+<p role="status">Second Number: @secondCount </p>
+<p role="status">Current count: @currentCount</p>
+
+
+@*<button class="btn btn-primary" @onclick="IncrementCount">+1</button>
+
+<button class="btn btn-primary" @onclick="DecreaseCount">-1</button>*@
+
+@*Here is the buttons for add subtract etc. id ="r5-3" 
+but if you want a different look for the buttons use id="btn btn-primary 
+they buttons turn blue. the = button replaces first number with current 
+count value and changes everything else to zero.*@
+<button @onclick="() => Add()" id="r5-3">+</button>
+<button @onclick="() => Subtract()" id="r5-3">-</button>
+<button @onclick="() => Multiply()" id="r5-3">*</button>
+<button @onclick="() => currentToFirst()" id="r5-3">=</button>
+<h1></h1>
+<button class="r5-3" @onclick="ZeroCount">Reset</button>
+
+<h1>First Number</h1>@*These are there to put the next buttons below 
+the other buttons to make rows. Technically I just put empty titles 
+for the other empty ones. But here the buttons only effect the first 
+number*@
+
+@*<button class="btn btn-primary" @onclick="IncrementCount">1</button>
+<button class="btn btn-primary" @onclick="DecreaseCount">1</button>*@
+
+<button @onclick="() => SomeFunction(1)" id="r5-3">1</button>
+<button @onclick="() => SomeFunction(2)" id="r5-3">2</button>
+<button @onclick="() => SomeFunction(3)" id="r5-3">3</button>
+<button @onclick="() => SomeFunction(0)" id="r5-3">0</button>
+<h1></h1>
+<button @onclick="() => SomeFunction(4)" id="r5-3">4</button>
+<button @onclick="() => SomeFunction(5)" id="r5-3">5</button>
+<button @onclick="() => SomeFunction(6)" id="r5-3">6</button>
+<button @onclick="() => SomeFunction(10)" id="r5-3">10</button>
+<h1></h1>
+<button @onclick="() => SomeFunction(7)" id="r5-3">7</button>
+<button @onclick="() => SomeFunction(8)" id="r5-3">8</button>
+<button @onclick="() => SomeFunction(9)" id="r5-3">9</button>
+<button @onclick="() => SomeFunction(100)" id="r5-3">100</button>
+<h1></h1>
+<button @onclick="() => SomeFunction(1000)" id="r5-3">1000</button>
+<button @onclick="() => SomeFunction(10000)" id="r5-3">10000</button>
+
+<h1>Second Number</h1>@*These buttons call someFunction2 which 
+only effects the second Number spot.*@
+
+<button @onclick="() => SomeFunction2(1)" id="r5-3">1</button>
+<button @onclick="() => SomeFunction2(2)" id="r5-3">2</button>
+<button @onclick="() => SomeFunction2(3)" id="r5-3">3</button>
+<button @onclick="() => SomeFunction2(0)" id="r5-3">0</button>
+<h1></h1>
+<button @onclick="() => SomeFunction2(4)" id="r5-3">4</button>
+<button @onclick="() => SomeFunction2(5)" id="r5-3">5</button>
+<button @onclick="() => SomeFunction2(6)" id="r5-3">6</button>
+<button @onclick="() => SomeFunction2(10)" id="r5-3">10</button>
+<h1></h1>
+<button @onclick="() => SomeFunction2(7)" id="r5-3">7</button>
+<button @onclick="() => SomeFunction2(8)" id="r5-3">8</button>
+<button @onclick="() => SomeFunction2(9)" id="r5-3">9</button>
+<button @onclick="() => SomeFunction2(100)" id="r5-3">100</button>
+<h1></h1>
+<button @onclick="() => SomeFunction2(1000)" id="r5-3">1000</button>
+<button @onclick="() => SomeFunction2(10000)" id="r5-3">10000</button>
+
+
+
+@code {
+    @*Starting values displayed at the top that are manipulated by the calculator*@
+    private int firstCount = 0;
+    private int secondCount = 0;
+    private int currentCount = 0;
+
+    @*The first number values get altered by this function*@
+    public void SomeFunction(int number)
+    {
+        firstCount = number;
+    }
+    @*The second number values get altered by this function.*@
+    public void SomeFunction2(int number)
+    {
+        secondCount = number;
+    }
+    @*math function add adds the two values together*@
+    public void Add()
+    {
+        currentCount = firstCount + secondCount;
+    }
+    @*math function subtract subtracts the two values from each other.*@
+    public void Subtract()
+    {
+        currentCount = firstCount - secondCount;
+    }
+    @*math function multiply multiplies the two values together*@
+    public void Multiply()
+    {
+        currentCount = firstCount * secondCount;
+    }
+    @*math function add adds the two values togetherchanges all values to zero again.*@
+    private void ZeroCount()
+    {
+        currentCount = 0;
+        firstCount = 0;
+        secondCount = 0;
+    }
+    @*Changes the firstCount value to equal the currentCount value*@
+    private void currentToFirst()
+    {
+        firstCount = currentCount;
+        currentCount = 0;
+        secondCount = 0;
+    }
+
+    @*I tried commenting out the rest of this because 
+    I do not use it but it created an error so I kept it.*@
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
+
+    public int DecreaseAmount { get; set; } = 1;
+
+    private void IncrementCount()
+    {
+        currentCount += IncrementAmount;
+    }
+
+    private void DecreaseCount()
+    {
+        currentCount -= DecreaseAmount;
+    }
+
+    
+
+    
+}
